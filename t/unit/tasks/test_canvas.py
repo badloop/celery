@@ -553,6 +553,10 @@ class test_group(CanvasCase):
         g2 = group(self.add.s(8, 8), g1, self.add.s(16, 16), app=self.app)
         g2.apply_async()
 
+    def test_group_in_chain(self):
+        c1 = (self.add.s(2.2) | group(self.add.s(4,4), self.add.s(8,8)))
+        c1()
+
     def test_set_immutable(self):
         g1 = group(Mock(name='t1'), Mock(name='t2'), app=self.app)
         g1.set_immutable(True)
